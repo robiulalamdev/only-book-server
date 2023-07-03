@@ -1,54 +1,53 @@
-# Digital Cow Hut Backend
+# Cow Hut Admin With Auth
 
-### Assignment Name: Online Cow Selling Backend for Eid Ul Adha
-
-You have been assigned the task of building the backend for an Online Cow Selling platform in preparation for Eid Ul Adha. The main focus of this assignment is to implement error handling, CRUD operations, pagination and filtering, transactions (including a simple transaction without a payment gateway), and additional routes as necessary.
-
-### Technology Stack:
-
-- Use TypeScript as the programming language.
-- Use Express.js as the web framework.
-- Use Mongoose as the Object Data Modeling (ODM) and validation library for MongoDB.
-
-### Live Link: https://digital-cow-hat.onrender.com/
+### Live Link: https://cow-hut-admin-with-auth.onrender.com
 
 ### Application Routes:
 
-#### User --->
+## Main part
 
-- api/v1/auth/signup (POST)
-- api/v1/users (GET)
-- api/v1/users/648ed26ea097704619e54ea3 (Single GET)
-- api/v1/users/648ed26ea097704619e54ea3 (PATCH)
-- api/v1/users/648ed26ea097704619e54ea3 (DELETE)
+### Auth (User)
 
-#### Cows --->
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/auth/login (POST)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/auth/signup (POST)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/auth/refresh-token (POST)
 
-- api/v1/cows (POST)
-- api/v1/cows/all (GET ALL)
-- api/v1/cows/648ed470a097704619e54eab (Single GET)
-- api/v1/cows/648ed470a097704619e54eab (PATCH)
-- api/v1/cows/648ed470a097704619e54eab (DELETE)
+### Auth (Admin)
 
-### Pagination and Filtering routes of Cows --->
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/admins/create-admin (POST)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/admins/login (POST)
 
-- api/v1/cows/?page=1&limit=2
-- api/v1/cows?sortBy=price&sortOrder=asc
-- api/v1/cows?minPrice=20000&maxPrice=70000
-- api/v1/cows?location=Chattogram
-- api/v1/cows?searchTerm=Cha
+### User
 
-#### Orders --->
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/users (GET)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/users/6177a5b87d32123f08d2f5d4 (Single GET)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/users/6177a5b87d32123f08d2f5d4 (PATCH)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/users/6177a5b87d32123f08d2f5d4 (DELETE)
 
-- api/v1/orders (POST)
+#### Cows
 
-```json
-{
-  "cow": "648ed470a097704619e54eab",
-  "buyer": "648ed26ea097704619e54ea3"
-}
-```
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows (POST)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows (GET)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows/6177a5b87d32123f08d2f5d4 (Single GET)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows/6177a5b87d32123f08d2f5d4 (PATCH)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows/6177a5b87d32123f08d2f5d4 (DELETE)
 
-- api/v1/orders (GET)
-- api/v1/orders/648ed42aa097704619e54ea9 (Single GET)
-# l2b1a4-cow-hut-admin-auth-Robiulalam76
+#### Orders
+
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/orders (POST)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/orders (GET)
+
+## Bonus Part
+
+#### Admin
+
+-Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/admins/create-admin (POST)
+
+#### My Profile
+
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/users/my-profile (GET)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/users/my-profile (PATCH)
+
+#### Order:
+
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/orders/6177a5b87d32123f08d2f5d4 (GET)
