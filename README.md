@@ -29,6 +29,7 @@ or: 64a2e8aba61231a22670ea7d
 #### Cows
 
 - Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows (POST)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows/ (GET) pagination
 - Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows/all (GET)
 - Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows/64a2ea5fa61231a22670ea7f (Single GET)
 - Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows/64a2ea5fa61231a22670ea7f (PATCH)
