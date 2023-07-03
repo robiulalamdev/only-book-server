@@ -25,6 +25,19 @@ const createAdminValidation = z.object({
   }),
 });
 
+
+const loginAdminValidation = z.object({
+  body: z.object({
+    phoneNumber: z.string({
+      required_error: 'Phone Number is Required',
+    }),
+    password: z.string({
+      required_error: 'Password is Required',
+    }),
+  }),
+});
+
 export const AdminValidation = {
   createAdminValidation,
+  loginAdminValidation
 };

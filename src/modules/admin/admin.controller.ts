@@ -1,8 +1,10 @@
-import { Request, RequestHandler, Response } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 import httpStatus from 'http-status';
 import { IAdmin } from './admin.interface';
 import { AdminService } from './admin.service';
 import sendResponse from '../../shared/sendResponse';
+import config from '../../config';
+import { ILoginUserResponse, IRefreshTokenResponse } from '../auths/auth.interface';
 
 
 const createAdmin: RequestHandler =async (req, res, next)=>{
@@ -29,64 +31,59 @@ const createAdmin: RequestHandler =async (req, res, next)=>{
   }
 }
 
-// const getSingleAdmin = catchAsync(async (req: Request, res: Response) => {
-//   const id = req.params.id;
-//   const result = await AdminService.getSingleAdmin(id);
 
-//   sendResponse<IAdmin>(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: 'Admin fetched successfully !',
-//     data: result,
-//   });
-// });
+const loginAdmin =async (req: Request, res: Response,next:NextFunction) => {
+  try {
+  const { ...loginData } = req.body;
+  const result = await AdminService.adminLogin(loginData);
+  const { refreshToken, ...others } = result;
+  const cookieOptions = {
+    secure: config.env === 'production',
+    httpOnly: true,
+  };
 
-// const getAllAdmins = catchAsync(async (req: Request, res: Response) => {
-//   const filters = pick(req.query, adminFilterableFields);
-//   const paginationOptions = pick(req.query, paginationFields);
+  res.cookie('refreshToken', refreshToken, cookieOptions);
 
-//   const result = await AdminService.getAllAdmins(filters, paginationOptions);
+  sendResponse<ILoginUserResponse>(res, {
+    statusCode: 200,
+    success: true,
+    message: 'User logged in successfully',
+    data: others,
+  });
+  } catch (error) {
+    next()
+  }
+};
 
-//   sendResponse<IAdmin[]>(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: 'Admins fetched successfully !',
-//     meta: result.meta,
-//     data: result.data,
-//   });
-// });
+const refreshToken = async (req: Request, res: Response,next:NextFunction) => {
+  try {
+    const { refreshToken } = req.cookies;
+  const result = await AdminService.refreshToken(refreshToken);
 
-// const updateAdmin = catchAsync(async (req: Request, res: Response) => {
-//   const id = req.params.id;
-//   const updatedData = req.body;
+  // set refresh token into cookie
+  const cookieOptions = {
+    secure: config.env === 'production',
+    httpOnly: true,
+  };
 
-//   const result = await AdminService.updateAdmin(id, updatedData);
+  res.cookie('refreshToken', refreshToken, cookieOptions);
 
-//   sendResponse<IAdmin>(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: 'Admin updated successfully !',
-//     data: result,
-//   });
-// });
+  sendResponse<IRefreshTokenResponse>(res, {
+    statusCode: 200,
+    success: true,
+    message: 'User logged in successfully !',
+    data: result,
+  });
+  } catch (error) {
+    next()
+  }
+};
 
-// const deleteAdmin = catchAsync(async (req: Request, res: Response) => {
-//   const id = req.params.id;
 
-//   const result = await AdminService.deleteAdmin(id);
-
-//   sendResponse<IAdmin>(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: 'Admin deleted successfully !',
-//     data: result,
-//   });
-// });
 
 export const AdminController = {
-  createAdmin
-  // getSingleAdmin,
-  // getAllAdmins,
-  // updateAdmin,
-  // deleteAdmin,
+  createAdmin,
+  loginAdmin,
+  refreshToken
+
 };

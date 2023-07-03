@@ -1,12 +1,11 @@
 import { Schema, model } from 'mongoose';
 import { AdminModel, IAdmin } from './admin.interface';
-import bcrypt from 'bcrypt';
-import config from '../../config';
+
 
 const AdminSchema = new Schema<IAdmin, AdminModel>(
   {
     phoneNumber: {
-      type: Number,
+      type: String,
       required: true,
       unique: true,
     },
@@ -39,16 +38,5 @@ const AdminSchema = new Schema<IAdmin, AdminModel>(
     timestamps: true,
   }
 );
-
-
-AdminSchema.pre('save', async function (next) {
-  // hashing user password
-  const user = this;
-  user.password = await bcrypt.hash(
-    user.password,
-    Number(config.bycrypt_salt_rounds)
-  );
-  next();
-});
 
 export const Admin = model<IAdmin, AdminModel>('Admin', AdminSchema);
