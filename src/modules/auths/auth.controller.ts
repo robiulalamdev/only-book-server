@@ -44,7 +44,7 @@ const loginUser =async (req: Request, res: Response,next:NextFunction) => {
 
 const refreshToken = async (req: Request, res: Response,next:NextFunction) => {
   try {
-    const { refreshToken } = req.cookies;
+  const { refreshToken } = req.cookies;
   const result = await authService.refreshToken(refreshToken);
 
   // set refresh token into cookie
@@ -58,7 +58,7 @@ const refreshToken = async (req: Request, res: Response,next:NextFunction) => {
   sendResponse<IRefreshTokenResponse>(res, {
     statusCode: 200,
     success: true,
-    message: 'User logged in successfully !',
+    message: 'New access token generated successfully !',
     data: result,
   });
   } catch (error) {

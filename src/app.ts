@@ -2,6 +2,9 @@ import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 const app: Application = express();
 
+import cookieParser from 'cookie-parser';
+app.use(cookieParser());
+
 // --------- routes ---------
 import globalErrorHanndler from './middlewares/GlobalErrorHandler';
 import httpStatus from 'http-status';
@@ -11,6 +14,7 @@ import router from './routes';
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 // --------- api ---------
 app.use('/api/v1/', router);
