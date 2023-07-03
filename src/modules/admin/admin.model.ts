@@ -1,10 +1,12 @@
 import { Schema, model } from 'mongoose';
 import { AdminModel, IAdmin } from './admin.interface';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 
 const AdminSchema = new Schema<IAdmin, AdminModel>(
   {
     phoneNumber: {
-      type: String,
+      type: Number,
       required: true,
       unique: true,
     },
@@ -19,17 +21,14 @@ const AdminSchema = new Schema<IAdmin, AdminModel>(
       select: 0
     },
     name: {
-      type: {
-        firstName: {
-          type: String,
-          required: true,
-        },
-        lastName: {
-          type: String,
-          required: true,
-        }
+      firstName: {
+        type: String,
+        required: true,
       },
-      required: true,
+      lastName: {
+        type: String,
+        required: true,
+      }
     },
     address: {
       type: String,
@@ -40,5 +39,16 @@ const AdminSchema = new Schema<IAdmin, AdminModel>(
     timestamps: true,
   }
 );
+
+
+AdminSchema.pre('save', async function (next) {
+  // hashing user password
+  const user = this;
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bycrypt_salt_rounds)
+  );
+  next();
+});
 
 export const Admin = model<IAdmin, AdminModel>('Admin', AdminSchema);

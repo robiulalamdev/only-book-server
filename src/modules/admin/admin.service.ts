@@ -1,139 +1,145 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status';
-import mongoose, { SortOrder } from 'mongoose';
-import ApiError from '../../../errors/ApiError';
-import { paginationHelpers } from '../../../helpers/paginationHelper';
-import { IGenericResponse } from '../../../interfaces/common';
-import { IPaginationOptions } from '../../../interfaces/pagination';
-import { User } from '../user/user.model';
-import { adminSearchableFields } from './admin.constant';
-import { IAdmin, IAdminFilters } from './admin.interface';
+import ApiError from '../../errors/ApiError';
+import { IAdmin } from './admin.interface';
 import { Admin } from './admin.model';
 
-const getSingleAdmin = async (id: string): Promise<IAdmin | null> => {
-  const result = await Admin.findOne({ id }).populate('managementDepartment');
+const createAdmin = async (user:IAdmin) => {
+  const admin = new Admin(user); // Create an instance of the Admin model
+  const result = await admin.save(); // Save the instance to the database
   return result;
 };
 
-const getAllAdmins = async (
-  filters: IAdminFilters,
-  paginationOptions: IPaginationOptions
-): Promise<IGenericResponse<IAdmin[]>> => {
-  // Extract searchTerm to implement search query
-  const { searchTerm, ...filtersData } = filters;
-  const { page, limit, skip, sortBy, sortOrder } =
-    paginationHelpers.calculatePagination(paginationOptions);
 
-  const andConditions = [];
+// const getSingleAdmin = async (id: string): Promise<IAdmin | null> => {
+//   const result = await Admin.findOne({ id }).populate('managementDepartment');
+//   return result;
+// };
 
-  // Search needs $or for searching in specified fields
-  if (searchTerm) {
-    andConditions.push({
-      $or: adminSearchableFields.map(field => ({
-        [field]: {
-          $regex: searchTerm,
-          $options: 'i',
-        },
-      })),
-    });
-  }
+// const getAllAdmins = async (
+//   filters: IAdminFilters,
+//   paginationOptions: IPaginationOptions
+// ): Promise<IGenericResponse<IAdmin[]>> => {
+//   // Extract searchTerm to implement search query
+//   const { searchTerm, ...filtersData } = filters;
+//   const { page, limit, skip, sortBy, sortOrder } =
+//     paginationHelpers.calculatePagination(paginationOptions);
 
-  // Filters needs $and to fullfill all the conditions
-  if (Object.keys(filtersData).length) {
-    andConditions.push({
-      $and: Object.entries(filtersData).map(([field, value]) => ({
-        [field]: value,
-      })),
-    });
-  }
+//   const andConditions = [];
 
-  // Dynamic sort needs  fields to  do sorting
-  const sortConditions: { [key: string]: SortOrder } = {};
-  if (sortBy && sortOrder) {
-    sortConditions[sortBy] = sortOrder;
-  }
+//   // Search needs $or for searching in specified fields
+//   if (searchTerm) {
+//     andConditions.push({
+//       $or: adminSearchableFields.map(field => ({
+//         [field]: {
+//           $regex: searchTerm,
+//           $options: 'i',
+//         },
+//       })),
+//     });
+//   }
 
-  // If there is no condition , put {} to give all data
-  const whereConditions =
-    andConditions.length > 0 ? { $and: andConditions } : {};
+//   // Filters needs $and to fullfill all the conditions
+//   if (Object.keys(filtersData).length) {
+//     andConditions.push({
+//       $and: Object.entries(filtersData).map(([field, value]) => ({
+//         [field]: value,
+//       })),
+//     });
+//   }
 
-  const result = await Admin.find(whereConditions)
-    .populate('managementDepartment')
-    .sort(sortConditions)
-    .skip(skip)
-    .limit(limit);
+//   // Dynamic sort needs  fields to  do sorting
+//   const sortConditions: { [key: string]: SortOrder } = {};
+//   if (sortBy && sortOrder) {
+//     sortConditions[sortBy] = sortOrder;
+//   }
 
-  const total = await Admin.countDocuments(whereConditions);
+//   // If there is no condition , put {} to give all data
+//   const whereConditions =
+//     andConditions.length > 0 ? { $and: andConditions } : {};
 
-  return {
-    meta: {
-      page,
-      limit,
-      total,
-    },
-    data: result,
-  };
-};
+//   const result = await Admin.find(whereConditions)
+//     .populate('managementDepartment')
+//     .sort(sortConditions)
+//     .skip(skip)
+//     .limit(limit);
 
-const updateAdmin = async (
-  id: string,
-  payload: Partial<IAdmin>
-): Promise<IAdmin | null> => {
-  const isExist = await Admin.findOne({ id });
+//   const total = await Admin.countDocuments(whereConditions);
 
-  if (!isExist) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Admin not found !');
-  }
+//   return {
+//     meta: {
+//       page,
+//       limit,
+//       total,
+//     },
+//     data: result,
+//   };
+// };
 
-  const { name, ...adminData } = payload;
+// const updateAdmin = async (
+//   id: string,
+//   payload: Partial<IAdmin>
+// ): Promise<IAdmin | null> => {
+//   const isExist = await Admin.findOne({ id });
 
-  const updatedStudentData: Partial<IAdmin> = { ...adminData };
+//   if (!isExist) {
+//     throw new ApiError(httpStatus.NOT_FOUND, 'Admin not found !');
+//   }
 
-  if (name && Object.keys(name).length > 0) {
-    Object.keys(name).forEach(key => {
-      const nameKey = `name.${key}` as keyof Partial<IAdmin>;
-      (updatedStudentData as any)[nameKey] = name[key as keyof typeof name];
-    });
-  }
+//   const { name, ...adminData } = payload;
 
-  const result = await Admin.findOneAndUpdate({ id }, updatedStudentData, {
-    new: true,
-  });
-  return result;
-};
+//   const updatedStudentData: Partial<IAdmin> = { ...adminData };
 
-const deleteAdmin = async (id: string): Promise<IAdmin | null> => {
-  // check if the faculty is exist
-  const isExist = await Admin.findOne({ id });
+//   if (name && Object.keys(name).length > 0) {
+//     Object.keys(name).forEach(key => {
+//       const nameKey = `name.${key}` as keyof Partial<IAdmin>;
+//       (updatedStudentData as any)[nameKey] = name[key as keyof typeof name];
+//     });
+//   }
 
-  if (!isExist) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Faculty not found !');
-  }
+//   const result = await Admin.findOneAndUpdate({ id }, updatedStudentData, {
+//     new: true,
+//   });
+//   return result;
+// };
 
-  const session = await mongoose.startSession();
+// const deleteAdmin = async (id: string): Promise<IAdmin | null> => {
+//   // check if the faculty is exist
+//   const isExist = await Admin.findOne({ id });
 
-  try {
-    session.startTransaction();
-    //delete student first
-    const student = await Admin.findOneAndDelete({ id }, { session });
-    if (!student) {
-      throw new ApiError(404, 'Failed to delete student');
-    }
-    //delete user
-    await User.deleteOne({ id });
-    session.commitTransaction();
-    session.endSession();
+//   if (!isExist) {
+//     throw new ApiError(httpStatus.NOT_FOUND, 'Faculty not found !');
+//   }
 
-    return student;
-  } catch (error) {
-    session.abortTransaction();
-    throw error;
-  }
-};
+//   const session = await mongoose.startSession();
+
+//   try {
+//     session.startTransaction();
+//     //delete student first
+//     const student = await Admin.findOneAndDelete({ id }, { session });
+//     if (!student) {
+//       throw new ApiError(404, 'Failed to delete student');
+//     }
+//     //delete user
+//     await User.deleteOne({ id });
+//     session.commitTransaction();
+//     session.endSession();
+
+//     return student;
+//   } catch (error) {
+//     session.abortTransaction();
+//     throw error;
+//   }
+// };
 
 export const AdminService = {
-  getSingleAdmin,
-  getAllAdmins,
-  updateAdmin,
-  deleteAdmin,
+  createAdmin
+  // getSingleAdmin,
+  // getAllAdmins,
+  // updateAdmin,
+  // deleteAdmin,
 };
+function create(user: IAdmin) {
+  throw new Error('Function not implemented.');
+}
+

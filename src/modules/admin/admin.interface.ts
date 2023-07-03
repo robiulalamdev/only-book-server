@@ -6,13 +6,11 @@ export type UserName = {
 };
 
 export type IAdmin = {
-  phoneNumber: string;
+  phoneNumber: number;
   role: 'admin';
   password: string;
   name: UserName;
-  address?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  address: string;
 };
 
 export type AdminModel = Model<IAdmin, Record<string, unknown>>;
