@@ -8,11 +8,21 @@ import sendResponse from '../../shared/sendResponse';
 const createAdmin: RequestHandler =async (req, res, next)=>{
   try {
       const result = await AdminService.createAdmin(req.body);
+      const responseData = {
+        phoneNumber: result.phoneNumber,
+        role: result.role,
+        name: result.name,
+        address: result.address,
+        _id: result._id,
+        createdAt: result.createdAt,
+        updatedAt: result.updatedAt,
+        __v: result.__v
+      };
       sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
         message: 'Admin created successfully!',
-        data: result,
+        data: responseData,
       });
   } catch (error) {
     next(error);

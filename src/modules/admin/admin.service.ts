@@ -7,7 +7,7 @@ import { Admin } from './admin.model';
 const createAdmin = async (user:IAdmin) => {
   const admin = new Admin(user); // Create an instance of the Admin model
   const result = await admin.save(); // Save the instance to the database
-  return result;
+  return result.toObject();
 };
 
 
