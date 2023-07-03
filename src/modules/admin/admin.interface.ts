@@ -6,8 +6,6 @@ export type UserName = {
 };
 
 export type IAdmin = {
-  save(): unknown;
-  create(): unknown;
   phoneNumber: string;
   role: 'admin';
   password: string;

@@ -1,13 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { Secret } from 'jsonwebtoken';
-import config from '../../config';
-import ApiError from '../../errors/ApiError';
-import { jwtHelpers } from '../../helpers/jwtHelpers';
+import ApiError from '../errors/ApiError';
+import { jwtHelpers } from '../helpers/jwtHelpers';
+import config from '../config';
 
-const auth =
-  (...requiredRoles: string[]) =>
-  async (req: Request, res: Response, next: NextFunction) => {
+const auth =(...requiredRoles: string[]) => async (req: Request, res: Response, next: NextFunction) => {
     try {
       //get authorization token
       const token = req.headers.authorization;
@@ -19,7 +17,7 @@ const auth =
 
       verifiedUser = jwtHelpers.verifyToken(token, config.jwt.secret as Secret);
 
-      req.user = verifiedUser; // role  , userid
+      (req as any).user = verifiedUser; // role  , userid
 
       // role diye guard korar jnno
       if (requiredRoles.length && !requiredRoles.includes(verifiedUser.role)) {

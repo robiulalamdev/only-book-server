@@ -15,10 +15,7 @@ const createAdmin: RequestHandler =async (req, res, next)=>{
       role: result.role,
       name: result.name,
       address: result.address,
-      _id: result._id,
-      createdAt: result.createdAt,
-      updatedAt: result.updatedAt,
-      __v: result.__v
+      _id: result._id
     };
     sendResponse(res, {
       statusCode: httpStatus.OK,
