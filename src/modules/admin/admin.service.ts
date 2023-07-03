@@ -7,6 +7,7 @@ import { Secret } from 'jsonwebtoken';
 import { jwtHelpers } from '../../helpers/jwtHelpers';
 import {  ILoginUserResponse, IRefreshTokenResponse } from '../auths/auth.interface';
 import ApiError from '../../errors/ApiError';
+import bcrypt from 'bcrypt';
 
 const createAdmin = async (user:IAdmin) => {
   const admin = new Admin(user); // Create an instance of the Admin model
@@ -22,12 +23,9 @@ const adminLogin = async (payload: ILoginAdmin): Promise<ILoginUserResponse> => 
   if (!isUserExist) {
       throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist');
     }
-    console.log(isUserExist,"dfd");
+    const isPasswordMatched = await bcrypt.compare(password, isUserExist.password);
 
-  if (
-    isUserExist.password &&
-    !password, isUserExist.password
-  ) {
+  if (!isPasswordMatched) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password is incorrect');
   }
 

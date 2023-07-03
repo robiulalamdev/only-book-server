@@ -51,7 +51,7 @@ const loginAdmin =async (req: Request, res: Response,next:NextFunction) => {
     data: others,
   });
   } catch (error) {
-    next()
+    next(error)
   }
 };
 
@@ -75,7 +75,7 @@ const refreshToken = async (req: Request, res: Response,next:NextFunction) => {
     data: result,
   });
   } catch (error) {
-    next()
+    next(error)
   }
 };
 
