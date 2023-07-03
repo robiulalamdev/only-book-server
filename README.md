@@ -20,17 +20,19 @@
 ### User
 
 - Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/users (GET)
-- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/users/6177a5b87d32123f08d2f5d4 (Single GET)
-- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/users/6177a5b87d32123f08d2f5d4 (PATCH)
-- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/users/6177a5b87d32123f08d2f5d4 (DELETE)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/users/64a2e850a61231a22670ea7b (Single GET)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/users/64a2e850a61231a22670ea7b (PATCH)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/users/64a2e850a61231a22670ea7b (DELETE)
+
+or: 64a2e8aba61231a22670ea7d
 
 #### Cows
 
 - Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows (POST)
-- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows (GET)
-- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows/6177a5b87d32123f08d2f5d4 (Single GET)
-- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows/6177a5b87d32123f08d2f5d4 (PATCH)
-- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows/6177a5b87d32123f08d2f5d4 (DELETE)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows/all (GET)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows/64a2ea5fa61231a22670ea7f (Single GET)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows/64a2ea5fa61231a22670ea7f (PATCH)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/cows/64a2ea5fa61231a22670ea7f (DELETE)
 
 #### Orders
 
@@ -50,4 +52,4 @@
 
 #### Order:
 
-- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/orders/6177a5b87d32123f08d2f5d4 (GET)
+- Route: https://cow-hut-admin-with-auth.onrender.com/api/v1/orders/64a2ec10a61231a22670ea86 (GET)
