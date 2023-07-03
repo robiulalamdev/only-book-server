@@ -50,16 +50,14 @@ const userSchema = new Schema<IUser>(
   }
 );
 
-
-
-// userSchema.pre('save', async function (next) {
-//   // hashing user password
-//   const user = this;
-//   user.password = await bcrypt.hash(
-//     user.password,
-//     Number(config.bycrypt_salt_rounds)
-//   );
-//   next();
-// });
+userSchema.pre('save', async function (next) {
+  // hashing user password
+  const user = this;
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bycrypt_salt_rounds)
+  );
+  next();
+});
 
 export const User = model<IUser, UserModel>('User', userSchema);
