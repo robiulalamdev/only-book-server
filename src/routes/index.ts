@@ -1,9 +1,6 @@
 import express from 'express';
 import { UserRoutes } from '../modules/users/user.route';
 import { authRoutes } from '../modules/auths/auth.route';
-import { cowRoutes } from '../modules/cows/cow.route';
-import { orderRoutes } from '../modules/orders/order.route';
-import { AdminRoutes } from '../modules/admin/admin.route';
 import { bookRoutes } from '../modules/books/book.route';
 const router = express.Router();
 

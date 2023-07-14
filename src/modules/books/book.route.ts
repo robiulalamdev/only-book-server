@@ -11,18 +11,10 @@ router.post(
 );
 
 
-// router.get('/all', auth(
-//     ENUM_USER_ROLE.SELLER,
-//     ENUM_USER_ROLE.BUYER,
-//     ENUM_USER_ROLE.ADMIN
-// ), CowController.getAllCows);
+router.get('/all', BookController.getAllBooks);
 
 // // get cows by pagination
-// router.get('/', auth(
-//     ENUM_USER_ROLE.SELLER,
-//     ENUM_USER_ROLE.BUYER,
-//     ENUM_USER_ROLE.ADMIN
-// ), CowController.getCowsByDynamic);
+router.get('/', BookController.getBooksByDynamic);
 
 // router.get('/:id', auth(
 //     ENUM_USER_ROLE.SELLER,

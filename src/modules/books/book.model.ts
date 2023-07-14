@@ -13,6 +13,10 @@ const bookSchema = new Schema<IBook>(
         },
         author: {
             type: String,
+            required: true,
+        },
+        publisher: {
+            type: String,
             ref: "User",
             required: true,
         },

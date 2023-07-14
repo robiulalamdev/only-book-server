@@ -12,6 +12,9 @@ const createBookZodValidate = z.object({
         author: z.string({
             required_error: 'Author is required',
         }),
+        publisher: z.string({
+            required_error: 'Publisher is required',
+        }),
         publicationDate: z.string({
             required_error: 'Date is required',
         }),
@@ -28,6 +31,9 @@ const updateBookZodValidate = z.object({
         }),
         author: z.string({
             required_error: 'Author is required',
+        }),
+        publisher: z.string({
+            required_error: 'Publisher is required',
         }),
         publicationDate: z.string({
             required_error: 'Date is required',
