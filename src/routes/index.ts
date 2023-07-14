@@ -18,16 +18,8 @@ const moduleRoutes = [
     route: authRoutes,
   },
   {
-    path: '/cows',
+    path: '/books',
     route: cowRoutes,
-  },
-  {
-    path: '/orders',
-    route: orderRoutes,
-  },
-  {
-    path: '/admins',
-    route: AdminRoutes,
   },
 ];
 
