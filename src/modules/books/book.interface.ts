@@ -8,7 +8,6 @@ export type IBook = {
     author: string;
     publisher: string;
     publicationDate: Date;
-    reviews?: string;
 };
 
 export type BookModel = Model<IBook, Record<string, unknown>>;

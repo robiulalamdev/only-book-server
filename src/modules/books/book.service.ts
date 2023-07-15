@@ -90,11 +90,20 @@ const getAllBooksByPagination = async (
 };
 
 
+
+
+// get single book
+const getBook = async (id: string): Promise<IBook | null> => {
+    const book = await Book.findOne({ _id: id }).populate('publisher', "email name ");
+    return book;
+};
+
+
 export const BookService = {
     createBook,
     getBooks,
     getAllBooksByPagination,
-    // getSingleCowById,
+    getBook
     // updateCowById,
     // deleteCowById,
 };

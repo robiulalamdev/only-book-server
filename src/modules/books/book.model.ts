@@ -24,11 +24,6 @@ const bookSchema = new Schema<IBook>(
             type: Date,
             required: true,
         },
-        reviews: {
-            type: String,
-            ref: "Review",
-            required: false,
-        },
     },
     {
         timestamps: true,

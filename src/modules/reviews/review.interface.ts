@@ -3,6 +3,7 @@ import { Model } from "mongoose";
 export type IReview = {
     book: string;
     comment: string;
+    reveiwer: string;
 }
 
 

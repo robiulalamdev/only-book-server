@@ -11,6 +11,11 @@ const reviewSchema = new Schema<IReview>(
             type: String,
             required: true,
         },
+        reveiwer: {
+            type: String,
+            ref: "User",
+            required: true,
+        },
     },
     {
         timestamps: true,

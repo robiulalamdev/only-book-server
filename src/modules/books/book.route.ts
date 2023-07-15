@@ -16,6 +16,10 @@ router.get('/all', BookController.getAllBooks);
 // // get cows by pagination
 router.get('/', BookController.getBooksByDynamic);
 
+router.get('/:id', BookController.getSingleBook);
+
+
+
 // router.get('/:id', auth(
 //     ENUM_USER_ROLE.SELLER,
 //     ENUM_USER_ROLE.BUYER,

@@ -1,11 +1,14 @@
 import { Schema, model } from 'mongoose';
 import { IUser, UserModel } from './user.interface';
-import { userRoles } from './user.constant';
 import bcrypt from 'bcrypt';
 import config from '../../config';
 
 const userSchema = new Schema<IUser>(
   {
+    name: {
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       unique: true,

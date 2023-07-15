@@ -45,8 +45,6 @@ const getBooksByDynamic: RequestHandler = async (req, res, next) => {
         const filters = pick(req.query, bookFilterableFields);
         const paginationOptions = pick(req.query, paginationFields);
 
-        console.log(filters, paginationOptions)
-
         const result = await BookService.getAllBooksByPagination(
             filters,
             paginationOptions
@@ -65,10 +63,27 @@ const getBooksByDynamic: RequestHandler = async (req, res, next) => {
 };
 
 
+// get single book
+const getSingleBook: RequestHandler = async (req, res, next) => {
+    try {
+        const result = await BookService.getBook(req.params.id);
+        sendResponse(res, {
+            success: true,
+            statusCode: httpStatus.OK,
+            message: 'Book retrieved successfully',
+            data: result,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 export const BookController = {
     createBook,
     getAllBooks,
     getBooksByDynamic,
+    getSingleBook
     // getSingleCow,
     // updateCowInfo,
     // deleteCow,
