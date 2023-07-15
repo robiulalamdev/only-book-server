@@ -11,7 +11,7 @@ import httpStatus from 'http-status';
 import router from './routes';
 
 //parser
-app.use(cors());
+app.use(cors<Request>());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
