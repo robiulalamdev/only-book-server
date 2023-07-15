@@ -99,11 +99,30 @@ const getBook = async (id: string): Promise<IBook | null> => {
 };
 
 
+
+// update book info
+const updateBookById = async (
+    id: string,
+    updateData: object
+): Promise<IBook | null> => {
+    const book = await Book.findOneAndUpdate({ _id: id }, updateData, {
+        new: true,
+    });
+    return book;
+};
+
+// delete book
+const deleteBookById = async (id: string): Promise<IBook | null> => {
+    const book = await Book.findByIdAndDelete({ _id: id });
+    return book;
+};
+
+
 export const BookService = {
     createBook,
     getBooks,
     getAllBooksByPagination,
-    getBook
-    // updateCowById,
-    // deleteCowById,
+    getBook,
+    updateBookById,
+    deleteBookById,
 };

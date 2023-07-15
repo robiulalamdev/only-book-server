@@ -19,6 +19,16 @@ router.get('/', BookController.getBooksByDynamic);
 router.get('/:id', BookController.getSingleBook);
 
 
+router.patch(
+    '/:id',
+    validateRequest(BookValidation.updateBookZodValidate),
+    BookController.updateBookInfo
+);
+
+
+
+router.delete('/:id', BookController.deleteBook);
+
 
 // router.get('/:id', auth(
 //     ENUM_USER_ROLE.SELLER,

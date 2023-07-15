@@ -79,12 +79,44 @@ const getSingleBook: RequestHandler = async (req, res, next) => {
 };
 
 
+
+
+// update book info
+const updateBookInfo: RequestHandler = async (req, res, next) => {
+    try {
+        const result = await BookService.updateBookById(req.params.id, req.body);
+        sendResponse(res, {
+            success: true,
+            statusCode: httpStatus.OK,
+            message: 'Book updated successfully',
+            data: result,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// delete book
+const deleteBook: RequestHandler = async (req, res, next) => {
+    try {
+        const result = await BookService.deleteBookById(req.params.id);
+        sendResponse(res, {
+            success: true,
+            statusCode: httpStatus.OK,
+            message: 'Book deleted successfully',
+            data: result,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 export const BookController = {
     createBook,
     getAllBooks,
     getBooksByDynamic,
-    getSingleBook
-    // getSingleCow,
-    // updateCowInfo,
-    // deleteCow,
+    getSingleBook,
+    updateBookInfo,
+    deleteBook,
 };
