@@ -49,14 +49,19 @@ const getAllBooksByPagination = async (
     if (Object.keys(filtersData).length) {
         andConditions.push({
             $and: Object.entries(filtersData).map(([field, value]) => {
-                return {
-                    [field]: { $regex: value, $options: 'i' },
-                };
+                if (field === "publicationDate") {
+                    return {
+                        [field]: value,
+                    };
+                }
+                else {
+                    return {
+                        [field]: { $regex: value, $options: 'i' },
+                    };
+                }
             }),
         });
     }
-
-    console.log(filtersData)
 
     const sortConditions: { [key: string]: SortOrder } = {};
 
