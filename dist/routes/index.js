@@ -6,9 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const user_route_1 = require("../modules/users/user.route");
 const auth_route_1 = require("../modules/auths/auth.route");
-const cow_route_1 = require("../modules/cows/cow.route");
-const order_route_1 = require("../modules/orders/order.route");
-const admin_route_1 = require("../modules/admin/admin.route");
+const book_route_1 = require("../modules/books/book.route");
+const review_route_1 = require("../modules/reviews/review.route");
 const router = express_1.default.Router();
 const moduleRoutes = [
     {
@@ -20,16 +19,12 @@ const moduleRoutes = [
         route: auth_route_1.authRoutes,
     },
     {
-        path: '/cows',
-        route: cow_route_1.cowRoutes,
+        path: '/books',
+        route: book_route_1.bookRoutes,
     },
     {
-        path: '/orders',
-        route: order_route_1.orderRoutes,
-    },
-    {
-        path: '/admins',
-        route: admin_route_1.AdminRoutes,
+        path: '/reviews',
+        route: review_route_1.reviewRoutes,
     },
 ];
 moduleRoutes.forEach(route => router.use(route.path, route.route));
