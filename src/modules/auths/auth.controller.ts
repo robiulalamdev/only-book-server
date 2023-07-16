@@ -19,52 +19,62 @@ const createUser: RequestHandler = async (req, res, next) => {
   }
 };
 
-const loginUser =async (req: Request, res: Response,next:NextFunction) => {
+const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-  const { ...loginData } = req.body;
-  const result = await authService.authLogin(loginData);
-  const { refreshToken, ...others } = result;
-  const cookieOptions = {
-    secure: config.env === 'production',
-    httpOnly: true,
-  };
+    const { ...loginData } = req.body;
+    const result = await authService.authLogin(loginData);
+    const { refreshToken, ...others } = result;
+    const cookieOptions = {
+      secure: config.env === 'production',
+      httpOnly: true,
+    };
 
-  res.cookie('refreshToken', refreshToken, cookieOptions);
+    res.cookie('refreshToken', refreshToken, cookieOptions);
 
-  sendResponse<ILoginUserResponse>(res, {
-    statusCode: 200,
-    success: true,
-    message: 'User logged in successfully',
-    data: others,
-  });
+    sendResponse<ILoginUserResponse>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'User logged in successfully',
+      data: others,
+    });
   } catch (error) {
     next(error)
   }
 };
 
-const refreshToken = async (req: Request, res: Response,next:NextFunction) => {
+const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
-  const { refreshToken } = req.cookies;
-  const result = await authService.refreshToken(refreshToken);
+    const { refreshToken } = req.cookies;
+    const result = await authService.refreshToken(refreshToken);
 
-  // set refresh token into cookie
-  const cookieOptions = {
-    secure: config.env === 'production',
-    httpOnly: true,
-  };
+    // set refresh token into cookie
+    const cookieOptions = {
+      secure: config.env === 'production',
+      httpOnly: true,
+    };
 
-  res.cookie('refreshToken', refreshToken, cookieOptions);
+    res.cookie('refreshToken', refreshToken, cookieOptions);
 
-  sendResponse<IRefreshTokenResponse>(res, {
-    statusCode: 200,
-    success: true,
-    message: 'New access token generated successfully !',
-    data: result,
-  });
+    sendResponse<IRefreshTokenResponse>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'New access token generated successfully !',
+      data: result,
+    });
   } catch (error) {
     next(error)
   }
 };
+
+
+const getAuthInfo = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+
+
+  } catch (error) {
+    next(error)
+  }
+}
 
 export const authController = {
   createUser,
