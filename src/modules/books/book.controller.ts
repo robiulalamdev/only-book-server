@@ -37,6 +37,35 @@ const getAllBooks: RequestHandler = async (req, res, next) => {
     }
 };
 
+// get all genres
+const getAllGenries: RequestHandler = async (req, res, next) => {
+    try {
+        const result = await BookService.getGenre();
+        sendResponse(res, {
+            success: true,
+            statusCode: httpStatus.OK,
+            message: 'Genres retrieved successfully',
+            data: result,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+// get all publication/all/:genre
+const getAllYears: RequestHandler = async (req, res, next) => {
+    try {
+        const result = await BookService.getYearByGenre(req.params.genre);
+        sendResponse(res, {
+            success: true,
+            statusCode: httpStatus.OK,
+            message: 'Years retrieved successfully',
+            data: result,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 
 
 // get books by pagination
@@ -66,6 +95,7 @@ const getBooksByDynamic: RequestHandler = async (req, res, next) => {
 // get single book
 const getSingleBook: RequestHandler = async (req, res, next) => {
     try {
+        console.log(req.params.id)
         const result = await BookService.getBook(req.params.id);
         sendResponse(res, {
             success: true,
@@ -112,6 +142,10 @@ const deleteBook: RequestHandler = async (req, res, next) => {
 };
 
 
+
+
+
+
 export const BookController = {
     createBook,
     getAllBooks,
@@ -119,4 +153,6 @@ export const BookController = {
     getSingleBook,
     updateBookInfo,
     deleteBook,
+    getAllGenries,
+    getAllYears
 };

@@ -25,7 +25,8 @@ router.patch(
     BookController.updateBookInfo
 );
 
-
+router.get('/genries/all', BookController.getAllGenries);
+router.post('/publication/all/:genre', BookController.getAllYears);
 
 router.delete('/:id', BookController.deleteBook);
 

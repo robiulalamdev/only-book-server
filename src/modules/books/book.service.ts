@@ -16,8 +16,22 @@ const createBook = async (book: IBook): Promise<IBook | null> => {
 
 // get all cows
 const getBooks = async (): Promise<IBook[]> => {
-    const books = await Book.find({}).populate('publisher', "email").sort({ _id: -1 });
+    const books = await Book.find({}).populate('publisher', "email").sort({ _id: -1 }).limit(10);
     return books;
+};
+
+
+// get all genres
+const getGenre = async (): Promise<IBook[]> => {
+    const genres = await Book.find({}).select("genre").sort({ _id: -1 });
+    return genres;
+};
+
+
+// get all years
+const getYearByGenre = async (genre: string): Promise<IBook[]> => {
+    const results = await Book.find({ genre: genre }).select("publicationYear").sort({ _id: -1 });
+    return results;
 };
 
 
@@ -94,6 +108,7 @@ const getAllBooksByPagination = async (
 
 // get single book
 const getBook = async (id: string): Promise<IBook | null> => {
+    console.log(id)
     const book = await Book.findOne({ _id: id }).populate('publisher', "email name ");
     return book;
 };
@@ -125,4 +140,6 @@ export const BookService = {
     getBook,
     updateBookById,
     deleteBookById,
+    getGenre,
+    getYearByGenre
 };
