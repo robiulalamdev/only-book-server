@@ -13,7 +13,7 @@ const wishlilstSchema = new Schema<IWishlist>(
             type: String,
             enum: wishlistStatus,
             required: true,
-            default: "none"
+            default: "Read Soon"
         },
         user: {
             type: String,
