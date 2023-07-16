@@ -9,7 +9,13 @@ const createWishlist = async (wishlist: IWishlist): Promise<IWishlist | null> =>
 
 
 // get all cows
-const getAllWishlist = async (user: string): Promise<IWishlist[]> => {
+const getAllWishlist = async (user: string, query: string): Promise<IWishlist[]> => {
+    const wishlists = await Wishlist.find({ user: user, status: query }).populate('book').sort({ _id: -1 })
+    return wishlists;
+};
+
+// get all cows
+const getAllWishlistItems = async (user: string): Promise<IWishlist[]> => {
     const wishlists = await Wishlist.find({ user: user }).populate('book').sort({ _id: -1 })
     return wishlists;
 };
@@ -45,6 +51,7 @@ const deleteWishlistById = async (id: string): Promise<IWishlist | null> => {
 export const WishlistService = {
     createWishlist,
     getAllWishlist,
+    getAllWishlistItems,
     getSingleWishlist,
     deleteWishlistById,
     updateWishlistById

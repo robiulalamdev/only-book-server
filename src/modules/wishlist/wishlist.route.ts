@@ -11,6 +11,7 @@ router.post('/',
 
 
 router.get("/:userId", WishlistController.getWishlistItems)
+router.get("/all/:userId", WishlistController.getAllWishlistItems)
 router.get("/single/:id/:userId", WishlistController.getWishlistById)
 
 
