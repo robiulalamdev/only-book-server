@@ -7,5 +7,5 @@ export const bookSearchableFields = [
 export const bookFilterableFields = [
     'searchTerm',
     'genre',
-    'publicationDate'
+    'publicationYear'
 ];

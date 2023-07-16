@@ -1,8 +1,10 @@
 import { z } from 'zod';
-import { Types } from 'mongoose';
 
 const createBookZodValidate = z.object({
     body: z.object({
+        image: z.string({
+            required_error: 'Image is required',
+        }),
         title: z.string({
             required_error: 'Ttile is required',
         }),
@@ -17,12 +19,21 @@ const createBookZodValidate = z.object({
         }),
         publicationDate: z.string({
             required_error: 'Date is required',
+        }),
+        publicationYear: z.string({
+            required_error: 'Year is required',
+        }),
+        description: z.string({
+            required_error: 'Description is required',
         }),
     }),
 });
 
 const updateBookZodValidate = z.object({
     body: z.object({
+        image: z.string({
+            required_error: 'Image is required',
+        }),
         title: z.string({
             required_error: 'Ttile is required',
         }),
@@ -37,6 +48,9 @@ const updateBookZodValidate = z.object({
         }),
         publicationDate: z.string({
             required_error: 'Date is required',
+        }),
+        description: z.string({
+            required_error: 'Description is required',
         }),
     }),
 });

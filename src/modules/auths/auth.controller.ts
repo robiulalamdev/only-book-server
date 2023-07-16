@@ -72,6 +72,7 @@ const refreshToken = async (req: Request, res: Response, next: NextFunction) => 
 const getAuthInfo = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { userId } = (req as any).user
+    console.log(userId)
     const user = await User.findOne({ _id: userId })
     sendResponse<IUser>(res, {
       statusCode: 200,

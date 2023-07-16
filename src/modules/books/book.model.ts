@@ -1,8 +1,12 @@
-import { model, Schema, Types } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import { BookModel, IBook } from './book.interface';
 
 const bookSchema = new Schema<IBook>(
     {
+        image: {
+            type: String,
+            required: true,
+        },
         title: {
             type: String,
             required: true,
@@ -22,6 +26,14 @@ const bookSchema = new Schema<IBook>(
         },
         publicationDate: {
             type: Date,
+            required: true,
+        },
+        publicationYear: {
+            type: String,
+            required: true,
+        },
+        description: {
+            type: String,
             required: true,
         },
     },

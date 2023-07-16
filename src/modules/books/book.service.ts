@@ -49,7 +49,7 @@ const getAllBooksByPagination = async (
     if (Object.keys(filtersData).length) {
         andConditions.push({
             $and: Object.entries(filtersData).map(([field, value]) => {
-                if (field === "publicationDate") {
+                if (field === "publicationYear") {
                     return {
                         [field]: value,
                     };
