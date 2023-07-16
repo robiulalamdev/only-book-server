@@ -10,7 +10,7 @@ router.post('/',
 );
 
 
-router.get("/:id", WishlistController.getWishlistItems)
+router.get("/:userId", WishlistController.getWishlistItems)
 router.get("/single/:id/:userId", WishlistController.getWishlistById)
 
 

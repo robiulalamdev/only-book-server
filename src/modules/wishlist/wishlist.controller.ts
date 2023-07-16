@@ -22,7 +22,7 @@ const createWishlist: RequestHandler = async (req, res, next) => {
 // get all wishlists
 const getWishlistItems: RequestHandler = async (req, res, next) => {
     try {
-        const result = await WishlistService.getAllWishlist();
+        const result = await WishlistService.getAllWishlist(req.params.userId);
         sendResponse(res, {
             success: true,
             statusCode: httpStatus.OK,
