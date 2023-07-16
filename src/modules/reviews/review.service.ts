@@ -12,7 +12,7 @@ const createBookReview = async (review: IReview): Promise<IReview | null> => {
 
 // get single book
 const getReviews = async (id: string): Promise<IReview[] | null> => {
-    const bookReviews = await Review.find({ book: id }).populate("reveiwer", "email name");
+    const bookReviews = await Review.find({ book: id }).sort({ _id: -1 })
     return bookReviews;
 };
 

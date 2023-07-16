@@ -14,7 +14,7 @@ const reviewSchema = new Schema<IReview>(
         reveiwer: {
             type: String,
             ref: "User",
-            required: true,
+            required: false,
         },
     },
     {

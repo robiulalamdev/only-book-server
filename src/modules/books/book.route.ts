@@ -31,26 +31,4 @@ router.post('/publication/all/:genre', BookController.getAllYears);
 router.delete('/:id', BookController.deleteBook);
 
 
-// router.get('/:id', auth(
-//     ENUM_USER_ROLE.SELLER,
-//     ENUM_USER_ROLE.BUYER,
-//     ENUM_USER_ROLE.ADMIN
-// ), CowController.getSingleCow);
-
-// router.patch(
-//     '/:id',
-//     validateRequest(CowValidation.updateCowZodValidate),
-//     auth(
-//         ENUM_USER_ROLE.SELLER
-//     ),
-//     CowController.updateCowInfo
-// );
-
-
-// router.delete('/:id',
-//     auth(
-//         ENUM_USER_ROLE.SELLER
-//     ),
-//     CowController.deleteCow);
-
 export const bookRoutes = router;

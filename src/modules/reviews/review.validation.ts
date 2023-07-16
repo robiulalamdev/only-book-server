@@ -10,7 +10,7 @@ const createReviewZodValidate = z.object({
         }),
         reveiwer: z.string({
             required_error: 'Reveiwer is required',
-        })
+        }).optional()
     }),
 });
 
