@@ -13,7 +13,7 @@ router.post(
 );
 
 router.post('/login', validateRequest(AuthValidation.loginAuthValidation), authController.loginUser);
-router.post('/info', auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.BUYER, ENUM_USER_ROLE.SELLER), authController.loginUser);
+router.post('/info', auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.BUYER, ENUM_USER_ROLE.SELLER), authController.getAuthInfo);
 
 router.post(
   '/refresh-token',

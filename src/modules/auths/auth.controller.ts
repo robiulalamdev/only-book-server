@@ -4,6 +4,8 @@ import sendResponse from '../../shared/sendResponse';
 import httpStatus from 'http-status';
 import { ILoginUserResponse, IRefreshTokenResponse } from './auth.interface';
 import config from '../../config';
+import { User } from '../users/user.model';
+import { IUser } from '../users/user.interface';
 
 const createUser: RequestHandler = async (req, res, next) => {
   try {
@@ -69,7 +71,14 @@ const refreshToken = async (req: Request, res: Response, next: NextFunction) => 
 
 const getAuthInfo = async (req: Request, res: Response, next: NextFunction) => {
   try {
-
+    const { userId } = (req as any).user
+    const user = await User.findOne({ _id: userId })
+    sendResponse<IUser>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'User info get successfully !',
+      data: user,
+    });
 
   } catch (error) {
     next(error)
@@ -79,5 +88,6 @@ const getAuthInfo = async (req: Request, res: Response, next: NextFunction) => {
 export const authController = {
   createUser,
   loginUser,
+  getAuthInfo,
   refreshToken
 };
