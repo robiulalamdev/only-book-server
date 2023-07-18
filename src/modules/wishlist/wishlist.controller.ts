@@ -25,6 +25,7 @@ const createWishlist: RequestHandler = async (req, res, next) => {
 const getWishlistItems: RequestHandler = async (req, res, next) => {
     try {
         const query = pick(req.query, wishlistFilterableFields)
+
         const result = await WishlistService.getAllWishlist(req.params.userId, query as any);
         sendResponse(res, {
             success: true,

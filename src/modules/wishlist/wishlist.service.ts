@@ -10,7 +10,8 @@ const createWishlist = async (wishlist: IWishlist): Promise<IWishlist | null> =>
 
 // get all cows
 const getAllWishlist = async (user: string, query: string): Promise<IWishlist[]> => {
-    const wishlists = await Wishlist.find({ user: user, status: query }).populate('book').sort({ _id: -1 })
+    console.log("quesry data; ", query)
+    const wishlists = await Wishlist.find({ user: user, query }).populate('book').sort({ _id: -1 })
     return wishlists;
 };
 
